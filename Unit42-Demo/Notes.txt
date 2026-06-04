@@ -1,0 +1,35 @@
+// OUR FIRST JAVASCRIPT PROGRAM
+
+console.log("Hello, World!");
+
+let studentName = "learner";
+console.log("Welcome, " + studentName + "!");
+
+/*Console Methods*/
+
+//1. console
+console.log("=== App started ===");
+
+//2. logging different types of data
+console.log("My Name is " + "Lwandle");
+console.log("My age is " + 25);
+console.log("Is it sunny today? " + true);
+
+//3. console.warn - flag something unusual
+console.warn("This is a warning message!");
+
+//4. console.error - signals a real problem
+console.error("This is an error message!");
+console.error("could not connect to the database");
+
+//5. console.table - displays data in a table format
+let studentData = [
+    { name: "Lwandle", age: 25, grade: "A" },
+    { name: "Thandi", age: 30, grade: "B" },
+    { name: "Sipho", age: 28, grade: "A-" }
+];
+console.table(studentData);
+
+//6. Logging a variable during debugging
+let score = 75;
+console.log("Student's score: " + score);
