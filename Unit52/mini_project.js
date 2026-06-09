@@ -2,9 +2,9 @@
 const prompt = require("prompt-sync")()
 
 // declare user input using prompt() for console
-let learnerName = prompt("Enter Learner Name: ")
-let assessmentMark = prompt("Enter Learner Assessment Mark (out of 100): ")
-let results
+let learnerName = String(prompt("Enter Learner Name: "))
+let assessmentMark = Number(prompt("Enter Learner Assessment Mark (out of 100): "))
+let results;
 
 // decision making logic with conditional statements
 if (assessmentMark >= 50){
