@@ -1,41 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 </head>
 <body>
-
-    <h1> Shopping Basket Checker</h1>
-    <h2 id='prompt'>Enter price of item 1 (R):</h2>
-
-    <input type='number' id='price-input' placeholder='e.g 49.99' step='0.01' min='0' >
-    <button id='add-btn'>Add Item</button>
-
-    <div id='results'></div>
-
-
-    <script>
-        // Variables declared outside onclick
-        let prices = [];
-        let itemNumber = 1;
-
-        //DOM References - saved once and used multiple times
-        const prompt = document.querySelector('#prompt');
-        const priceInput = document.querySelector('#price-input');
-        const addBtn = document.querySelector('#add-btn');
-        const resultsDiv = document.querySelector('#results');
-
-        addBtn.click = function(){
-            // Read the price from the input field and convert it to a number
-            let price = parseFloat(priceInput.value);
-            priceInput.value = ''; // Clear the input field for the next item
-            input.focus(); // move the cursor back to the input field for the next item
-
-            // add this price to the prices
-        }
-    </script>
-
+<h1>Shopping basket Checker</h1>
+<h3 id ='prompt'>Enter price of item 1 (R): </h3>
+<input type ='number' id='price-input' placeholder='e.g 49.99' step='0.01' min='0'>
+<button id = 'add-btn'>Add Item</button>
+<div id='results'></div>
+<script>
+let prices = [];
+let itemNumber = 1;
+ 
+const promptElement = document.getElementById('prompt');
+const priceInput = document.getElementById('price-input');
+const addButton = document.getElementById('add-btn');
+const resultsElement = document.getElementById('results');
+ 
+addButton.onclick = function() {
+const price = parseFloat(priceInput.value);
+ 
+priceInput.value = '';
+priceInput.focus();
+ 
+prices.push(price);
+resultsElement.innerHTML += '<h3>Item ' + itemNumber + ': R ' + price.toFixed(2) + '</h3>';
+itemNumber++;
+ 
+if (itemNumber > 5) {
+addButton.disabled = true;
+promptElement.textContent = 'Maximum number of items reached.';
+analyseBasket();
+}
+else {
+promptElement.textContent = 'Enter price of item ' + itemNumber + ' (R): ';
+}
+}
+ 
+function analyseBasket() {
+resultsElement.innerHTML += '<h3>Basket Analysis:</h3>';
+ 
+// Add up all the prices to get the total
+let total = 0;
+for (let i = 0; i < prices.length; i++) {
+total = total + prices[i];
+}
+resultsElement.innerHTML += '<h3>Total: R ' + total.toFixed(2) + '</h3>';
+ 
+if (total > 500) {
+resultsElement.innerHTML += '<h3>Warning: Total exceeds R 500!</h3>';
+}
+else if (total > 200) {
+resultsElement.innerHTML += '<h3>Getting expensive!</h3>';
+}
+else if (total > 50) {
+resultsElement.innerHTML += '<h3>Budget-friendly!</h3>';
+}
+else {
+resultsElement.innerHTML += '<h3>Great deal!</h3>';
+}
+ 
+// Task B: filter() - find only the items above R50
+let expensiveItems = prices.filter(function(price) {
+return price > 50;
+});
+resultsElement.innerHTML += '<h3>Expensive Items (above R50): ' + expensiveItems.join(', R') + '</h3>';
+ 
+// Task C: map() - make a new list where every price has 15% VAT added
+let pricesWithVAT = prices.map(function(price) {
+return price * 1.15;
+});
+ 
+// Round each VAT price to 2 decimal places for display
+let pricesWithVATRounded = [];
+for (let i = 0; i < pricesWithVAT.length; i++) {
+pricesWithVATRounded.push(pricesWithVAT[i].toFixed(2));
+}
+resultsElement.innerHTML += '<h3>Prices with VAT: R ' + pricesWithVATRounded.join(', R') + '</h3>';
+ 
+// Task D: sort() - copy the prices and sort them cheapest to most expensive
+let sortedPrices = [...prices];
+sortedPrices.sort(function(a, b) {
+return a - b;
+});
+ 
+// Round each sorted price to 2 decimal places for display
+let sortedPricesRounded = [];
+for (let i = 0; i < sortedPrices.length; i++) {
+sortedPricesRounded.push(sortedPrices[i].toFixed(2));
+}
+resultsElement.innerHTML += '<h3>Cheapest to Most Expensive: R ' + sortedPricesRounded.join(', R') + '</h3>';
+ 
+// Task E: includes() - check if a specific price is in the basket
+let checkPrice = 49.99;
+let hasPrice = prices.includes(checkPrice);
+resultsElement.innerHTML += '<h3>Does basket include R' + checkPrice.toFixed(2) + '? ' + hasPrice + '</h3>';
+}
+</script>
 </body>
 </html>
