@@ -1,0 +1,18 @@
+Returns or sets the HTML markup contained within an element.
+If you use element.innerHTML, you’ll get everything inside the element, including tags.
+
+Returns or sets the plain text inside an element.
+It ignores HTML tags and gives you only the text.
+
+
+getElementById()
+used to select the list its self 
+
+
+
+function greet(name) {
+    document.querySelector("h3").textContent =
+    "Hello " + name + ", welcome to DOM!";
+}
+
+greet("Lwandle")
